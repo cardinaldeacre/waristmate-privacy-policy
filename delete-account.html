@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hapus Akun — WaristMate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F6F3EC;
+    --panel: #FBFAF6;
+    --ink: #1B2420;
+    --ink-soft: #5C665F;
+    --teal: #103F37;
+    --teal-deep: #0B2E28;
+    --gold: #A97A34;
+    --gold-soft: #C9A56B;
+    --line: #DCD5C2;
+    --danger: #8C3B2E;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: var(--teal); }
+
+  .star{
+    display:inline-block;
+    width: 1em; height: 1em;
+    vertical-align: -0.12em;
+  }
+
+  /* ---------- Header ---------- */
+  header.hero{
+    position: relative;
+    background: var(--teal);
+    color: #EFE9DA;
+    padding: 76px 32px 56px;
+    overflow: hidden;
+  }
+  header.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      radial-gradient(circle at 12% 20%, rgba(201,165,107,0.10) 0, transparent 45%),
+      radial-gradient(circle at 88% 82%, rgba(201,165,107,0.08) 0, transparent 40%);
+    pointer-events:none;
+  }
+  .hero-inner{
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .eyebrow{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:"JetBrains Mono", monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 22px;
+  }
+  .eyebrow svg{ width:16px; height:16px; flex-shrink:0; }
+  h1.title{
+    font-family:"Fraunces", serif;
+    font-weight: 500;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 1.08;
+    margin: 0 0 18px;
+    letter-spacing: -0.01em;
+  }
+  h1.title em{
+    font-style: italic;
+    color: var(--gold-soft);
+  }
+  .hero-meta{
+    font-size: 14.5px;
+    color: #C7C0AE;
+    max-width: 560px;
+  }
+  .hero-meta .updated{
+    display:inline-block;
+    margin-top: 14px;
+    font-family:"JetBrains Mono", monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    color: var(--gold-soft);
+    border-top: 1px solid rgba(201,165,107,0.35);
+    padding-top: 10px;
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 56px 32px 120px;
+  }
+
+  .intro{
+    font-family:"Fraunces", serif;
+    font-size: 1.22rem;
+    line-height: 1.6;
+    color: var(--ink);
+    max-width: 62ch;
+    margin: 0 0 48px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .intro strong{ color: var(--teal); font-weight: 600; }
+
+  .warning{
+    display:flex;
+    gap: 14px;
+    align-items:flex-start;
+    margin: 0 0 48px;
+    padding: 18px 20px;
+    background: #FBF1EC;
+    border-left: 2px solid var(--danger);
+    max-width: 62ch;
+  }
+  .warning svg{ flex-shrink:0; margin-top:2px; color: var(--danger); width:20px; height:20px; }
+  .warning p{ margin:0; font-size: 14.5px; color: #6B3226; max-width: none; }
+  .warning strong{ color: var(--danger); }
+
+  /* ---------- Option cards ---------- */
+  .option{
+    padding: 40px 0;
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 28px;
+  }
+  .option:last-of-type{ border-bottom: none; }
+
+  .option-head{
+    display:flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .option-num{
+    font-family:"JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+  h2{
+    font-family:"Fraunces", serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--teal-deep);
+  }
+  p{ margin: 0 0 14px; color: var(--ink); max-width: 68ch; }
+  p.muted{ color: var(--ink-soft); font-size: 14.5px; }
+
+  ol.steps{
+    counter-reset: step;
+    list-style: none;
+    margin: 22px 0 0;
+    padding: 0;
+    max-width: 68ch;
+  }
+  ol.steps li{
+    counter-increment: step;
+    position: relative;
+    padding: 14px 0 14px 52px;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+  }
+  ol.steps li:first-child{ border-top: none; }
+  ol.steps li::before{
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 30px; height: 30px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family:"JetBrains Mono", monospace;
+    font-size: 13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: var(--panel);
+  }
+  ol.steps li strong{ color: var(--teal-deep); }
+
+  .divider-or{
+    display:flex;
+    align-items:center;
+    gap: 16px;
+    max-width: 68ch;
+    margin: 8px 0 8px;
+    color: var(--ink-soft);
+    font-family:"JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .btn-form{
+    display:inline-flex;
+    align-items:center;
+    gap: 10px;
+    margin-top: 22px;
+    padding: 13px 26px;
+    background: var(--teal);
+    color: #EFE9DA;
+    text-decoration:none;
+    font-size: 14.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: background .15s ease;
+  }
+  .btn-form:hover{ background: var(--teal-deep); }
+  .btn-form svg{ width:15px; height:15px; }
+
+  .callout{
+    margin-top: 22px;
+    padding: 16px 18px;
+    background: var(--panel);
+    border-left: 2px solid var(--gold);
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  footer{
+    background: var(--teal-deep);
+    color: #B9BCB4;
+    padding: 40px 32px;
+    text-align: center;
+    font-size: 13px;
+  }
+  footer .star{ color: var(--gold-soft); margin: 0 10px; }
+  footer a{ color: var(--gold-soft); text-decoration: none; }
+  footer a:hover{ text-decoration: underline; }
+
+  @media (max-width: 640px){
+    header.hero{ padding: 56px 20px 40px; }
+    .layout{ padding: 40px 20px 90px; }
+    ol.steps li{ padding-left: 46px; }
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 2 L14.2 9.8 L22 12 L14.2 14.2 L12 22 L9.8 14.2 L2 12 L9.8 9.8 Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      WaristMate &middot; Pengelolaan Akun
+    </div>
+    <h1 class="title">Hapus <em>Akun</em></h1>
+    <p class="hero-meta">
+      Panduan resmi untuk menghapus akun WaristMate beserta data yang terkait dengannya.
+      <span class="updated">Terakhir diperbarui: 23 Juli 2026</span>
+    </p>
+  </div>
+</header>
+
+<div class="layout">
+
+  <p class="intro">
+    Anda dapat menghapus akun WaristMate beserta seluruh data yang tersimpan di dalamnya kapan saja.
+    Tersedia <strong>dua cara</strong> untuk melakukannya: langsung melalui aplikasi, atau melalui formulir
+    permintaan penghapusan akun jika Anda tidak lagi memiliki akses ke aplikasi.
+  </p>
+
+  <div class="warning">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 9v4m0 4h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <p>
+      <strong>Perhatian:</strong> Penghapusan akun bersifat permanen. Seluruh data aset, utang, wasiat,
+      informasi ahli waris, dan catatan warisan yang tersimpan akan dihapus dan tidak dapat dipulihkan.
+    </p>
+  </div>
+
+  <!-- Opsi 1 -->
+  <section class="option" id="opsi-1">
+    <div class="option-head"><span class="option-num">Opsi 01</span><h2>Melalui Aplikasi</h2></div>
+    <p>Cara tercepat dan direkomendasikan jika Anda masih memiliki akses ke akun WaristMate Anda.</p>
+
+    <ol class="steps">
+      <li>Buka aplikasi <strong>WaristMate</strong></li>
+      <li>Masuk ke halaman <strong>Profil</strong></li>
+      <li>Pilih menu <strong>Pengaturan Akun</strong></li>
+      <li>Tekan opsi <strong>Hapus Akun</strong></li>
+      <li>Konfirmasi dengan menekan <strong>Ya</strong> pada dialog konfirmasi yang muncul</li>
+    </ol>
+
+    <div class="callout">
+      Setelah dikonfirmasi, akun dan seluruh data terkait akan langsung diproses untuk dihapus dari sistem kami.
+    </div>
+  </section>
+
+  <!-- Opsi 2 -->
+  <section class="option" id="opsi-2">
+    <div class="option-head"><span class="option-num">Opsi 02</span><h2>Melalui Formulir Google</h2></div>
+    <p>
+      Gunakan cara ini jika Anda tidak lagi dapat mengakses aplikasi (misalnya lupa kata sandi atau
+      sudah tidak menginstal aplikasi), namun tetap ingin mengajukan permintaan penghapusan akun.
+    </p>
+
+    <ol class="steps">
+      <li>Tekan tombol <strong>Ajukan Penghapusan Akun</strong> di bawah ini</li>
+      <li>Anda akan diarahkan ke <strong>formulir permintaan penghapusan akun</strong></li>
+      <li>Isi formulir dengan data yang diminta agar tim kami dapat memverifikasi dan memproses permintaan Anda</li>
+    </ol>
+
+    <a class="btn-form" href="https://forms.gle/aKBMoZddiTJYa7ik7" target="_blank" rel="noopener noreferrer">
+      Ajukan Penghapusan Akun
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M7 17 17 7M7 7h10v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    <p class="muted" style="margin-top:16px;">
+      Tautan: <a href="https://forms.gle/aKBMoZddiTJYa7ik7" target="_blank" rel="noopener noreferrer">forms.gle/aKBMoZddiTJYa7ik7</a>
+    </p>
+  </section>
+
+</div>
+
+<footer>
+  WaristMate<span class="star">✦</span>Pengelolaan &amp; Perhitungan Faraidh<span class="star">✦</span>&copy; 2026
+</footer>
+
+</body>
+</html>
