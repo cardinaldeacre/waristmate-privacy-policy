@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panduan Aplikasi — WaristMate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F6F3EC;
+    --panel: #FBFAF6;
+    --ink: #1B2420;
+    --ink-soft: #5C665F;
+    --teal: #103F37;
+    --teal-deep: #0B2E28;
+    --gold: #A97A34;
+    --gold-soft: #C9A56B;
+    --line: #DCD5C2;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: var(--teal); }
+
+  .star{
+    display:inline-block;
+    width: 1em; height: 1em;
+    vertical-align: -0.12em;
+  }
+
+  /* ---------- Header ---------- */
+  header.hero{
+    position: relative;
+    background: var(--teal);
+    color: #EFE9DA;
+    padding: 76px 32px 56px;
+    overflow: hidden;
+  }
+  header.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      radial-gradient(circle at 12% 20%, rgba(201,165,107,0.10) 0, transparent 45%),
+      radial-gradient(circle at 88% 82%, rgba(201,165,107,0.08) 0, transparent 40%);
+    pointer-events:none;
+  }
+  .hero-inner{
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .eyebrow{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:"JetBrains Mono", monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 22px;
+  }
+  .eyebrow svg{ width:16px; height:16px; flex-shrink:0; }
+  h1.title{
+    font-family:"Fraunces", serif;
+    font-weight: 500;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 1.08;
+    margin: 0 0 18px;
+    letter-spacing: -0.01em;
+  }
+  h1.title em{
+    font-style: italic;
+    color: var(--gold-soft);
+  }
+  .hero-meta{
+    font-size: 14.5px;
+    color: #C7C0AE;
+    max-width: 560px;
+  }
+  .hero-meta .updated{
+    display:inline-block;
+    margin-top: 14px;
+    font-family:"JetBrains Mono", monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    color: var(--gold-soft);
+    border-top: 1px solid rgba(201,165,107,0.35);
+    padding-top: 10px;
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 56px;
+    padding: 56px 32px 120px;
+    align-items: start;
+  }
+
+  nav.toc{
+    position: sticky;
+    top: 32px;
+    align-self: start;
+  }
+  nav.toc .toc-label{
+    font-family:"JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  nav.toc ol{
+    list-style: none;
+    margin:0; padding:0;
+    border-left: 1px solid var(--line);
+  }
+  nav.toc li{ margin: 0; }
+  nav.toc a{
+    display:block;
+    text-decoration:none;
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    padding: 7px 0 7px 16px;
+    border-left: 1px solid transparent;
+    margin-left: -1px;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  nav.toc a:hover{ color: var(--teal); }
+  nav.toc a.active{
+    color: var(--teal);
+    border-left-color: var(--gold);
+    font-weight: 500;
+  }
+
+  main{ min-width: 0; }
+
+  .intro{
+    font-family:"Fraunces", serif;
+    font-size: 1.22rem;
+    line-height: 1.6;
+    color: var(--ink);
+    max-width: 62ch;
+    margin: 0 0 48px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .intro strong{ color: var(--teal); font-weight: 600; }
+
+  section.clause{
+    padding: 40px 0;
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 28px;
+  }
+  section.clause:last-of-type{ border-bottom: none; }
+
+  .clause-head{
+    display:flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .clause-num{
+    font-family:"JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+  h2{
+    font-family:"Fraunces", serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--teal-deep);
+  }
+  h3{
+    font-family:"Inter", sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin: 20px 0 10px;
+  }
+  p{ margin: 0 0 14px; color: var(--ink); max-width: 68ch; }
+  p.muted{ color: var(--ink-soft); font-size: 14.5px; }
+  p.lead{ color: var(--ink-soft); font-size: 15px; margin-bottom: 22px; max-width: 62ch; }
+
+  ul.clean{
+    margin: 0 0 14px;
+    padding: 0;
+    list-style: none;
+    max-width: 68ch;
+  }
+  ul.clean li{
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  ul.clean li::before{
+    content:"";
+    position:absolute;
+    left:0; top: 10px;
+    width: 6px; height: 6px;
+    background: var(--gold-soft);
+    transform: rotate(45deg);
+  }
+
+  ol.steps{
+    counter-reset: step;
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    max-width: 68ch;
+  }
+  ol.steps li{
+    counter-increment: step;
+    position: relative;
+    padding: 14px 0 14px 52px;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+  }
+  ol.steps li:first-child{ border-top: none; }
+  ol.steps li::before{
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 30px; height: 30px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family:"JetBrains Mono", monospace;
+    font-size: 13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: var(--panel);
+  }
+  ol.steps li strong{ color: var(--teal-deep); }
+
+  .callout{
+    margin-top: 18px;
+    padding: 16px 18px;
+    background: var(--panel);
+    border-left: 2px solid var(--gold);
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+  .callout strong{ color: var(--teal); }
+
+  .badge{
+    display:inline-block;
+    font-family:"JetBrains Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: rgba(16,63,55,0.07);
+    border: 1px solid var(--line);
+    padding: 3px 9px;
+    margin: 2px 6px 2px 0;
+  }
+
+  footer{
+    background: var(--teal-deep);
+    color: #B9BCB4;
+    padding: 40px 32px;
+    text-align: center;
+    font-size: 13px;
+  }
+  footer .star{ color: var(--gold-soft); margin: 0 10px; }
+  footer a{ color: var(--gold-soft); text-decoration: none; }
+  footer a:hover{ text-decoration: underline; }
+
+  .mobile-toc{ display:none; }
+
+  @media (max-width: 860px){
+    .layout{ grid-template-columns: 1fr; padding: 40px 20px 90px; gap: 0; }
+    nav.toc{ display:none; }
+    header.hero{ padding: 56px 20px 40px; }
+    ol.steps li{ padding-left: 46px; }
+
+    .mobile-toc{
+      display:block;
+      margin-bottom: 40px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 8px 4px;
+    }
+    .mobile-toc summary{
+      cursor: pointer;
+      padding: 10px 14px;
+      font-family:"JetBrains Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    .mobile-toc ol{
+      list-style: none;
+      margin:0; padding: 4px 14px 10px;
+    }
+    .mobile-toc a{
+      display:block;
+      padding: 6px 0;
+      font-size: 14px;
+      color: var(--ink-soft);
+      text-decoration: none;
+    }
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 2 L14.2 9.8 L22 12 L14.2 14.2 L12 22 L9.8 14.2 L2 12 L9.8 9.8 Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      WaristMate &middot; Panduan Pengguna
+    </div>
+    <h1 class="title">Panduan <em>Aplikasi</em></h1>
+    <p class="hero-meta">
+      Kenali seluruh fitur WaristMate — mulai dari perhitungan waris, pencatatan aset,
+      modul pembelajaran fikih mawaris, hingga pengelolaan akun.
+      <span class="updated">Terakhir diperbarui: 13 Agustus 2026</span>
+    </p>
+  </div>
+</header>
+
+<div class="layout">
+
+  <details class="mobile-toc">
+    <summary>Daftar Fitur</summary>
+    <ol id="mobile-toc-list"></ol>
+  </details>
+
+  <nav class="toc" aria-label="Daftar isi">
+    <div class="toc-label">Daftar Fitur</div>
+    <ol id="toc-list"></ol>
+  </nav>
+
+  <main>
+    <p class="intro">
+      <strong>WaristMate</strong> adalah aplikasi pendamping untuk menghitung dan mengelola
+      warisan sesuai syariat Islam (Faraidh). Panduan ini menjelaskan cara menggunakan
+      setiap fitur utama aplikasi, mulai dari masuk dengan akun Google hingga menyimpan
+      riwayat perhitungan.
+    </p>
+
+    <!-- 01 Memulai -->
+    <section class="clause" id="f1">
+      <div class="clause-head"><span class="clause-num">01</span><h2>Memulai &amp; Masuk ke Aplikasi</h2></div>
+      <p class="lead">Masuk menggunakan akun Google agar data Anda tersimpan dan tersinkron di setiap perangkat.</p>
+
+      <ol class="steps">
+        <li>Buka aplikasi <strong>WaristMate</strong>, Anda akan melihat halaman sambutan (<em>Welcome Screen</em>)</li>
+        <li>Tekan tombol menuju halaman utama, atau langsung menuju menu <strong>Profil</strong></li>
+        <li>Pada menu Profil, tekan <strong>Sign in with Google</strong></li>
+        <li>Pilih akun Google yang ingin digunakan</li>
+        <li>Jika akun baru pertama kali digunakan, sistem akan otomatis mendaftarkan Anda; jika sudah pernah, data Anda akan tersinkron kembali</li>
+      </ol>
+
+      <div class="callout">
+        Sebagian fitur seperti <strong>Kalkulator Waris</strong> dan <strong>Modul Pembelajaran</strong> tetap dapat digunakan tanpa login, karena diproses secara lokal di perangkat. Namun login diperlukan untuk fitur <strong>Catatan Personal</strong> dan <strong>Riwayat Perhitungan</strong> yang tersinkron ke cloud.
+      </div>
+    </section>
+
+    <!-- 02 Kalkulator -->
+    <section class="clause" id="f2">
+      <div class="clause-head"><span class="clause-num">02</span><h2>Kalkulator Waris</h2></div>
+      <p class="lead">Fitur utama untuk menghitung pembagian waris berdasarkan kondisi keluarga Anda, termasuk kasus khusus (masail nadirah).</p>
+
+      <h3>a. Mengisi Data Harta</h3>
+      <ol class="steps">
+        <li>Dari halaman utama, tekan <strong>Kalkulator Waris</strong></li>
+        <li>Isi kolom <strong>Harta yang Ditinggalkan</strong> (Rp)</li>
+        <li>Pilih jenis kelamin <strong>Muwarrits</strong> (orang yang meninggal)</li>
+        <li>Isi <strong>Biaya Pengurusan Jenazah</strong>, <strong>Hutang dari Muwarrits</strong>, dan <strong>Wasiat</strong> (maksimal 1/3 dari sisa harta)</li>
+        <li>Sistem akan menampilkan sisa harta yang siap diwariskan (tirkah)</li>
+        <li>Tekan <strong>Lanjut</strong></li>
+      </ol>
+
+      <h3>b. Mengisi Data Anggota Keluarga</h3>
+      <ol class="steps">
+        <li>Centang atau isi anggota keluarga yang masih hidup pada tiap kolom (Orang Tua, Istri/Suami, Anak, Saudara, dst.)</li>
+        <li>Gunakan tombol <strong>+</strong> / <strong>−</strong> atau geser slider untuk menambah/mengurangi jumlah anggota keluarga sejenis</li>
+        <li>Data diisi secara bertahap dalam beberapa halaman berurutan — ikuti label keterangan pada tiap kolom</li>
+        <li>Tekan <strong>Lanjut</strong> hingga seluruh data terisi</li>
+      </ol>
+
+      <h3>c. Melihat Hasil Perhitungan</h3>
+      <ol class="steps">
+        <li>Setelah data lengkap, sistem memproses perhitungan menggunakan aturan fikih mawaris (hajb, 'aul, radd, dan kasus khusus jika ada)</li>
+        <li>Hasil ditampilkan dalam tabel berisi <strong>Ahli Waris</strong>, <strong>Porsi/Bagian</strong>, dan <strong>Nominal</strong> yang diterima</li>
+        <li>Ahli waris yang terhalang (<em>mahjub</em>) ditampilkan terpisah beserta alasannya</li>
+        <li>Tekan <strong>Simpan Hasil</strong> jika ingin menyimpan perhitungan ke Riwayat (memerlukan login)</li>
+        <li>Tersedia tombol untuk menghubungi ahli jika Anda memiliki pertanyaan lebih lanjut</li>
+      </ol>
+    </section>
+
+    <!-- 03 Catatan Personal -->
+    <section class="clause" id="f3">
+      <div class="clause-head"><span class="clause-num">03</span><h2>Catatan Personal Pra-Kematian</h2></div>
+      <p class="lead">Catat aset, hutang, piutang, dan wasiat Anda sebagai persiapan sebelum proses pembagian waris di kemudian hari.</p>
+
+      <ol class="steps">
+        <li>Buka menu <strong>Catatan Personal</strong> dari navigasi bawah</li>
+        <li>Masuk dengan akun Google jika belum login</li>
+        <li>Tambahkan daftar <strong>aset</strong> Anda beserta nominalnya (misalnya uang tunai, emas, properti)</li>
+        <li>Tambahkan daftar <strong>hutang</strong> yang Anda miliki beserta keterangannya</li>
+        <li>Isi daftar <strong>wasiat</strong> dan catatan bebas seputar peninggalan Anda</li>
+        <li>Tekan <strong>Simpan</strong> untuk menyimpan catatan</li>
+      </ol>
+
+      <div class="callout">
+        <strong>Keamanan data:</strong> seluruh catatan personal dilindungi dengan enkripsi ujung-ke-ujung (End-to-End Encryption) sebelum dikirim ke server, sehingga hanya Anda yang dapat membaca isinya.
+      </div>
+    </section>
+
+    <!-- 04 Modul Pembelajaran -->
+    <section class="clause" id="f4">
+      <div class="clause-head"><span class="clause-num">04</span><h2>Modul Pembelajaran</h2></div>
+      <p class="lead">Pelajari fikih mawaris secara mandiri, disusun berdasarkan referensi Ilmu-l-Faraidh KMI Gontor.</p>
+
+      <ol class="steps">
+        <li>Buka menu <strong>Modul Belajar</strong> dari navigasi bawah</li>
+        <li>Pilih salah satu <strong>bab</strong> dari daftar materi yang tersedia</li>
+        <li>Gunakan kolom pencarian untuk mencari materi berdasarkan kata kunci</li>
+        <li>Tekan ikon <strong>bookmark</strong> untuk menandai materi yang ingin dibaca ulang</li>
+        <li>Atur ukuran teks Latin dan Arab melalui menu <strong>Preferensi</strong> di halaman Profil agar nyaman dibaca</li>
+      </ol>
+
+      <div class="callout">
+        Materi pembelajaran tersimpan secara lokal di perangkat, sehingga tetap dapat diakses meski tanpa koneksi internet. Progres bacaan Anda akan tercatat secara otomatis.
+      </div>
+    </section>
+
+    <!-- 05 Riwayat -->
+    <section class="clause" id="f5">
+      <div class="clause-head"><span class="clause-num">05</span><h2>Riwayat Perhitungan</h2></div>
+      <p class="lead">Lihat kembali hasil-hasil perhitungan waris yang pernah Anda simpan.</p>
+
+      <ol class="steps">
+        <li>Buka menu <strong>Profil</strong>, lalu pilih <strong>Riwayat Perhitungan</strong></li>
+        <li>Daftar perhitungan yang tersimpan akan ditampilkan berurutan (terbaru/terlama)</li>
+        <li>Tekan salah satu riwayat untuk melihat <strong>detail perhitungan</strong> lengkap, termasuk ringkasan harta dan tabel pembagian ahli waris</li>
+      </ol>
+
+      <div class="callout">
+        Riwayat perhitungan tersinkron ke akun Google Anda, sehingga dapat diakses kembali dari perangkat lain selama Anda login dengan akun yang sama.
+      </div>
+    </section>
+
+    <!-- 06 Profil -->
+    <section class="clause" id="f6">
+      <div class="clause-head"><span class="clause-num">06</span><h2>Profil &amp; Pengaturan Akun</h2></div>
+      <p class="lead">Kelola informasi akun dan preferensi tampilan aplikasi.</p>
+
+      <ol class="steps">
+        <li>Buka menu <strong>Profil</strong> dari navigasi bawah</li>
+        <li>Tekan <strong>Edit Profil</strong> untuk mengubah nama pengguna atau foto profil</li>
+        <li>Atur <strong>Preferensi</strong> ukuran teks Latin dan Arab untuk halaman Modul Pembelajaran</li>
+        <li>Untuk keluar dari akun, tekan <strong>Logout</strong></li>
+        <li>Untuk menghapus akun secara permanen, buka <strong>Pengaturan Akun → Hapus Akun</strong> lalu konfirmasi dengan menekan <strong>Ya</strong></li>
+      </ol>
+
+      <p class="muted">Lihat halaman <a href="delete-account.html">Hapus Akun</a> untuk panduan lengkap, termasuk opsi alternatif melalui formulir jika Anda tidak dapat mengakses aplikasi.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  WaristMate<span class="star">✦</span>Pengelolaan &amp; Perhitungan Faraidh<span class="star">✦</span>&copy; 2026
+</footer>
+
+<script>
+  const sections = Array.from(document.querySelectorAll('section.clause'));
+  const tocList = document.getElementById('toc-list');
+  const mobileTocList = document.getElementById('mobile-toc-list');
+
+  sections.forEach(sec => {
+    const num = sec.querySelector('.clause-num').textContent;
+    const title = sec.querySelector('h2').textContent;
+    const id = sec.id;
+
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#' + id;
+    a.textContent = num + '  ' + title;
+    a.dataset.target = id;
+    li.appendChild(a);
+    tocList.appendChild(li);
+
+    const liM = document.createElement('li');
+    const aM = document.createElement('a');
+    aM.href = '#' + id;
+    aM.textContent = num + '  ' + title;
+    liM.appendChild(aM);
+    mobileTocList.appendChild(liM);
+  });
+
+  const tocLinks = Array.from(tocList.querySelectorAll('a'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const link = tocList.querySelector(`a[data-target="${entry.target.id}"]`);
+      if (!link) return;
+      if (entry.isIntersecting){
+        tocLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+
+  sections.forEach(sec => observer.observe(sec));
+</script>
+
+</body>
+</html>
